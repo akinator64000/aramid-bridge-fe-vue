@@ -19,16 +19,12 @@ import { useI18n } from 'vue-i18n'
 import SelectDestinationWalletDialog from './dialogs/SelectDestinationWalletDialog.vue'
 import RoundButton from './ui/RoundButton.vue'
 import WalletAddress from './ui/WalletAddress.vue'
+import { formatTooltip } from '@/scripts/common/formatTooltip'
 
 const { t } = useI18n()
 const store = useAppStore()
 const toast = useToast()
 const { setActiveNetwork, avmActiveWallet, activeAccount } = useWallet()
-
-// Helper function to convert \n to actual newlines for tooltips
-const formatTooltip = (key: string) => {
-  return t(key).replace(/\\n/g, '\n')
-}
 interface IState {
   connected: boolean
   publicConfiguration: PublicConfigurationRoot | null
@@ -280,7 +276,7 @@ watch(
       v-if="store.state.destinationTokenConfiguration"
       :img="`logos/tokens/${store.state.destinationTokenConfiguration?.logo}.png`"
       :text="store.state.destinationTokenConfiguration.name"
-      v-tooltip.top="formatTooltip('wallet.tooltipDestination')"
+      v-tooltip.top="formatTooltip(t('wallet.tooltipDestination'))"
       @click="buttonClick"
     >
       <img alt="wallet" loading="lazy" width="20" height="20" decoding="async" data-nimg="1" class="3xl:w-14 3xl:h-14" :src="getImageUrl()" style="color: transparent" />

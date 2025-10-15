@@ -15,16 +15,12 @@ import { makeNoteField } from '@/scripts/aramid/makeNoteField'
 import { viewAmount } from '@/scripts/common/viewAmount'
 import { sanitizeTokenName } from '@/scripts/common/sanitizeTokenName'
 import { useI18n } from 'vue-i18n'
+import { formatTooltip } from '@/scripts/common/formatTooltip'
 
 const { t } = useI18n()
 const toast = useToast()
 const store = useAppStore()
 const route = useRoute()
-
-// Helper function to convert \n to actual newlines for tooltips
-const formatTooltip = (key: string) => {
-  return t(key).replace(/\\n/g, '\n')
-}
 
 interface IState {
   publicConfiguration: PublicConfigurationRoot | null
@@ -124,7 +120,7 @@ const setMax = () => {
     <SimpleLabel class="justify-center md:justify-end lg:justify-end xl:justify-end md:text-right"> {{ t('amount.toBridge') }} </SimpleLabel>
     <div class="flex flex-col md:flex-row justify-center md:justify-end lg:justify-end xl:justify-end">
       <input
-        v-tooltip.focus.top="formatTooltip('amount.tooltipBridge')"
+        v-tooltip.focus.top="formatTooltip(t('amount.tooltipBridge'))"
         type="number"
         min="0"
         placeholder="0.0"
