@@ -22,6 +22,7 @@ import getEthAccountTokenBalance from '@/scripts/eth/getEthAccountTokenBalance'
 import WalletAddress from './ui/WalletAddress.vue'
 import BigNumber from 'bignumber.js'
 import { useI18n } from 'vue-i18n'
+import { formatTooltip } from '@/scripts/common/formatTooltip'
 
 const { t } = useI18n()
 const { setActiveNetwork, activeWallet, activeAccount } = useWallet()
@@ -292,7 +293,7 @@ const getImageUrl = () => {
   <div>
     <SimpleLabel>{{ t('wallet.originWallet') }}</SimpleLabel>
     <RoundButton
-      v-tooltip.top="t('wallet.tooltipOrigin')"
+      v-tooltip.top="formatTooltip(t('wallet.tooltipOrigin'))"
       v-if="store.state.sourceTokenConfiguration"
       :img="`logos/tokens/${store.state.sourceTokenConfiguration?.logo}.png`"
       :text="store.state.sourceTokenConfiguration.name"
