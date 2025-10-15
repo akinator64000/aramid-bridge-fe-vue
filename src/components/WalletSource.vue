@@ -26,6 +26,11 @@ import { useI18n } from 'vue-i18n'
 const { t } = useI18n()
 const { setActiveNetwork, activeWallet, activeAccount } = useWallet()
 
+// Helper function to convert \n to actual newlines for tooltips
+const formatTooltip = (key: string) => {
+  return t(key).replace(/\\n/g, '\n')
+}
+
 const toast = useToast()
 const store = useAppStore()
 
@@ -292,7 +297,7 @@ const getImageUrl = () => {
   <div>
     <SimpleLabel>{{ t('wallet.originWallet') }}</SimpleLabel>
     <RoundButton
-      v-tooltip.top="t('wallet.tooltipOrigin')"
+      v-tooltip.top="formatTooltip('wallet.tooltipOrigin')"
       v-if="store.state.sourceTokenConfiguration"
       :img="`logos/tokens/${store.state.sourceTokenConfiguration?.logo}.png`"
       :text="store.state.sourceTokenConfiguration.name"

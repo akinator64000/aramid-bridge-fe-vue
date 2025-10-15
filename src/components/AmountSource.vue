@@ -21,6 +21,11 @@ const toast = useToast()
 const store = useAppStore()
 const route = useRoute()
 
+// Helper function to convert \n to actual newlines for tooltips
+const formatTooltip = (key: string) => {
+  return t(key).replace(/\\n/g, '\n')
+}
+
 interface IState {
   publicConfiguration: PublicConfigurationRoot | null
   sourceAmount: number
@@ -119,7 +124,7 @@ const setMax = () => {
     <SimpleLabel class="justify-center md:justify-end lg:justify-end xl:justify-end md:text-right"> {{ t('amount.toBridge') }} </SimpleLabel>
     <div class="flex flex-col md:flex-row justify-center md:justify-end lg:justify-end xl:justify-end">
       <input
-        v-tooltip.focus.top="t('amount.tooltipBridge')"
+        v-tooltip.focus.top="formatTooltip('amount.tooltipBridge')"
         type="number"
         min="0"
         placeholder="0.0"
